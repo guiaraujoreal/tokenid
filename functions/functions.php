@@ -1,8 +1,10 @@
 <?php
 function login($user, $pwd){
+    /*
     //a variavel $user tbm será a do email
     $user_encode = base64_encode($user);
     $pwd_encode = base64_encode($pwd);
+    */
 
     $url = 'https://api.dbhub.io/v1/query';
     // Dados da solicitação
@@ -10,7 +12,7 @@ function login($user, $pwd){
         'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
         'dbowner' => 'guiaraujoreal',
         'dbname' => 'tokenid.sqlite',
-        'sql' => base64_encode('SELECT * FROM login WHERE (cpf = \'' . $user_encode . '\' AND pwd = \'' . $pwd_encode . '\') OR (email = \'' . $user_encode . '\' AND pwd = \'' . $pwd_encode . '\')')
+        'sql' => base64_encode('SELECT * FROM login WHERE (cpf = \'' . $user . '\' AND pwd = \'' . $pwd . '\') OR (email = \'' . $user . '\' AND pwd = \'' . $pwd . '\')')
     ];
 
     // Inicializa o cURL
@@ -71,6 +73,7 @@ function insert_admin($nome, $cpf, $pwd, $endereco, $matricula, $datanasc, $emai
     $datanasc_encode = base64_encode($datanasc);
     $email_encode = base64_encode($email);
     $att_encode = base64_encode($att);
+    
 
     if ($att == 1) {
         $tabela = 'admin';
