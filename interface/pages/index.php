@@ -12,10 +12,10 @@
     <div class="container-fluid div-cont">
         <h1>Olá, administrador!</h1>
         <div class="row d-flex justify-content-center">
-            <button class="btn btn-success btn-block">Adicionar Administrador</button>
+            <a href="registro-admin.php" class="btn btn-success btn-block">Adicionar Administrador</a>
         </div>
         <div class="row d-flex justify-content-center">
-            <a href="registro-resp.php" class="btn btn-danger btn-block">Adicionar Genitor/Responsável</a>
+            <a class="btn btn-danger btn-block">Adicionar Genitor/Responsável</a>
         </div>
         <div class="row d-flex justify-content-center">
             <button class="btn btn-primary btn-block">Adicionar Aluno</button>

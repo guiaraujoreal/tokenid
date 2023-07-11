@@ -7,7 +7,7 @@
             'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
             'dbowner' => 'guiaraujoreal',
             'dbname' => 'tokenid.sqlite',
-            'sql' => base64_encode("SELECT * FROM login WHERE id = 2")
+            'sql' => base64_encode("SELECT * FROM admin WHERE id = 1")
         );
 
         // Inicializa o cURL

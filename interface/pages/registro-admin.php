@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container-fluid div_form">
-        <h1 class="title d-flex justify-content-center">Adicionar Genitor/Responsável Legal</h1>
+        <h1 class="title d-flex justify-content-center">Adicionar Administrador</h1>
 
-        <form action="" method="post" >
+        <form action="../../functions/requests.php" method="post" >
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome Completo:</label>
                 <input name="nome" type="text" class="form-control" id="nome" placeholder="Ex: Elder">
@@ -21,27 +21,25 @@
                 <input name="cpf" type="text" class="form-control" id="cpf" placeholder="00000000000">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Atribuição:</label>
-                <select name="att" class="form-control" id="att">
-                <option value="1" >Administrador</option>
-                <option value="2">Genitor/Responsável Legal</option>
-                <option value="3">Aluno</option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="exampleFormControlInput1">Data de nascimento:</label>
                 <input name="data" type="text" class="form-control" id="data" placeholder="Formato: dia-mes-ano">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Email:</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Formato: dia-mes-ano">
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Endereço:</label>
+                <input name="endereco" type="text" class="form-control" id="endereco" placeholder="Endereco">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Crie uma senha:</label>
                 <input name="pwd" type="text" class="form-control" id="pwd" placeholder="Senha forte">
             </div>
+            <input name="request" type="hidden" class="form-control" id="request" value="2">
+            <input name="att" type="hidden" class="form-control" id="att" value="1">
             <div class="botao d-flex justify-content-center">
-            <button class="btn btn-success" >Enviar</button>
+            <button class="btn btn-success">Enviar</button>
             </div>
             </form>
     </div>
