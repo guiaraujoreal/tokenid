@@ -12,13 +12,7 @@
     <div class="container-fluid div-cont">
         <h1>Olá, administrador!</h1>
         <div class="row d-flex justify-content-center">
-            <a href="registro-admin.php" class="btn btn-success btn-block">Adicionar Administrador</a>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <a class="btn btn-danger btn-block">Adicionar Genitor/Responsável</a>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <button class="btn btn-primary btn-block">Adicionar Aluno</button>
+            <a href="registro-admin.php" class="btn btn-success btn-block">Adicionar novo usuário</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

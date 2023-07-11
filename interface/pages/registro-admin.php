@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles/registro-resp.css">
-    <title>Registrar Responsável</title>
+    <title>Registrar Usuário</title>
 </head>
 <body>
     <div class="container-fluid div_form">
-        <h1 class="title d-flex justify-content-center">Adicionar Administrador</h1>
+        <h1 class="title d-flex justify-content-center">Registrar Usuário</h1>
 
         <form action="../../functions/requests.php" method="post" >
             <div class="form-group">
@@ -33,11 +33,18 @@
                 <input name="endereco" type="text" class="form-control" id="endereco" placeholder="Endereco">
             </div>
             <div class="form-group">
+                <label for="exampleFormControlInput1">Atribuição:</label>
+                <select name="att" id="att">
+                    <option value="1">Administrador</option>
+                    <option value="2">Genitor/Responsável Legal</option>
+                    <option value="3">Aluno</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="exampleFormControlInput1">Crie uma senha:</label>
                 <input name="pwd" type="text" class="form-control" id="pwd" placeholder="Senha forte">
             </div>
             <input name="request" type="hidden" class="form-control" id="request" value="2">
-            <input name="att" type="hidden" class="form-control" id="att" value="1">
             <div class="botao d-flex justify-content-center">
             <button class="btn btn-success">Enviar</button>
             </div>
