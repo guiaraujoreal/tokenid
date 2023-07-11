@@ -8,6 +8,6 @@
 </head>
 <body>
     <p>Deu certo!</p>
-    <a class="btn btn-success" href="index.php">Home</a>
+    <a class="btn btn-success" href="home.php">Home</a>
 </body>
 </html>
