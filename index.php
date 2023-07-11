@@ -1,3 +1,3 @@
 <?php
-header('location:interface/pages/index.php')
+header('location:interface/pages/home.php')
 ?>
