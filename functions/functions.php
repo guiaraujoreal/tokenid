@@ -1,11 +1,6 @@
 <?php
 function login($user, $pwd){
-    /*
-    //a variavel $user tbm será a do email
-    $user_encode = base64_encode($user);
-    $pwd_encode = base64_encode($pwd);
-    */
-
+ 
     $url = 'https://api.dbhub.io/v1/query';
     // Dados da solicitação
     $data = [
