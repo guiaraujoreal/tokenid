@@ -11,6 +11,7 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
+        <th class="escopo" scope="col">ID</th>
       <th class="escopo" scope="col">Nome</th>
       <th class="escopo" scope="col">CPF</th>
       <th class="escopo" scope="col">Email</th>
@@ -57,12 +58,13 @@ if ($query01 === false) {
        
         echo "<tr>";
 
-            echo "<td>" . base64_decode($element[1]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . $element[0]["Value"] . "</td>";
             if(base64_decode($element[6]["Value"]) == 3){
                 $att_name = 'Aluno';
             }else{
                 $att_name = 'Sem atribuição';
             }
+            echo "<td class='escopo'>" . base64_decode($element[1]["Value"]) . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[4]["Value"]) . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[5]["Value"]) . "</td>";
             echo "<td class='escopo'>" .$att_name . "</td>";

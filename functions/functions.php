@@ -40,17 +40,18 @@ function login($user, $pwd){
             // Verifica se há algum resultado
             if (!empty($resposta)) {
 
-                $att_return = $resposta[0][4]['Value'];
-                $name_return = $resposta[0][5]['Value'];
+                $att_return = base64_decode($resposta[0][4]['Value']);
+                $name_return = base64_decode($resposta[0][5]['Value']);
+                $cpf_return = base64_decode($resposta[0][1]['Value']);
 
-                $return_login = array($att_return,$name_return);
+                $return_login = array($att_return,$name_return,$cpf_return);
             } else {
-                $return_login = array(0,0);
+                $return_login = array(0,0,0);
             }
         
             }
         }else{
-            $return_login = array(0,0);
+            $return_login = array(0,0,0);
         }
         echo json_encode($return_login);
     }
@@ -211,14 +212,17 @@ function return_vinculo($cpf_resp){
                         }
                         print_r($return_vinculo);
                     } else {
-                        $return_login = array(0,0);
+                        $return_vinculo = array(0);
+                        echo json_encode($return_vinculo);
                     }
                 
             }
         }else{
-            $return_login = array(0,0);
+            $return_vinculo = array(0);
+            echo json_encode($return_vinculo);
         }
-        echo json_encode($return_login);
+        $return_vinculo = array(0);
+        echo json_encode($return_vinculo);
         
     }
 
