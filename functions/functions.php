@@ -7,7 +7,7 @@ function login($user, $pwd){
         'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
         'dbowner' => 'guiaraujoreal',
         'dbname' => 'tokenid.sqlite',
-        'sql' => base64_encode('SELECT * FROM login WHERE (cpf = \'' . $user . '\' AND pwd = \'' . $pwd . '\') OR (email = \'' . $user . '\' AND pwd = \'' . $pwd . '\')')
+        'sql' => base64_encode('SELECT * FROM login WHERE cpf = \'' . $user . '\' AND pwd = \'' . $pwd . '\') OR (email = \'' . $user . '\' AND pwd = \'' . $pwd . '\')')
     ];
 
     // Inicializa o cURL

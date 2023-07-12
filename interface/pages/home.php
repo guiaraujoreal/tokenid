@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,7 @@
         <h1>Olá, administrador!</h1>
         <div class="row d-flex justify-content-center">
             <a href="registro-admin.php" class="btn btn-success btn-block">Adicionar novo usuário</a>
+            <a href="view_alunos.php" class="btn btn-primary btn-block">Listar Alunos</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
