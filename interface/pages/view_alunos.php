@@ -2,100 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">]
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/view_alunos.css">
     <title>Usuários</title>
 </head>
 <body>
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">CPF</th>
-      <th scope="col">Email</th>
-      <th scope="col">Atribuição</th>
-      <th scope="col">Matricula</th>
-      <th scope="col">Senha</th>
+      <th class="escopo" scope="col">Nome</th>
+      <th class="escopo" scope="col">CPF</th>
+      <th class="escopo" scope="col">Email</th>
+      <th class="escopo" scope="col">Atribuição</th>
+      <th class="escopo" scope="col">Matricula</th>
+      <th class="escopo" scope="col">Senha</th>
+      <th class="escopo" scope="col">Ações</th>
     </tr>
   </thead>
   <tbody>
-    <?php
+  <?php
 
-     $url = 'https://api.dbhub.io/v1/query';
+$url = 'https://api.dbhub.io/v1/query';
 
-     // Dados a serem enviados para a API
-     $data01 = array(
-         'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
-         'dbowner' => 'guiaraujoreal',
-         'dbname' => 'tokenid.sqlite',
-         'sql' =>base64_encode('SELECT * FROM responsaveis')
-     );
- 
-     // Inicializa o cURL
-     $ch = curl_init();
- 
-     // Configura as opções do cURL
-     curl_setopt($ch, CURLOPT_URL, $url);
-     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-     curl_setopt($ch, CURLOPT_POST, 1);
-     curl_setopt($ch, CURLOPT_POSTFIELDS, $data01);
- 
-     // Executa a solicitação
- 
-     // Verifica se ocorreu algum erro
-     $query01 = curl_exec($ch);
+// Dados a serem enviados para a API
+$data01 = array(
+    'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
+    'dbowner' => 'guiaraujoreal',
+    'dbname' => 'tokenid.sqlite',
+    'sql' => base64_encode('SELECT * FROM alunos')
+);
 
-     // Verifica se ocorreu algum erro
-     if ($query01 === false) {
-         echo 'Erro ao enviar os dados: ' . curl_error($ch);
-     } else {
-         // Decodifica a resposta JSON
-         $resultados = json_decode($query01, true);
-         $array = array(
-            array(
-                array(
-                    'Name' => 'id',
-                    'Type' => 4,
-                    'Value' => 1
-                ),
-                array(
-                    'Name' => 'nome',
-                    'Type' => 3,
-                    'Value' => 'UmVzcG9uc8OhdmVsMDE='
-                ),
-                // Outros elementos...
-            )
-        );
-        
-        $values = array();
-        foreach ($array[0] as $element) {
-            $values[] = $element['Value'];
-        }
-        
-        print_r($values);
-        
-        }
+// Inicializa o cURL
+$ch = curl_init();
 
-         /*
-         // Verifica se há resultados
-         if (isset($resultados['result']['rows'])) {
-             $rows = $resultados['result']['rows'];
+// Configura as opções do cURL
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data01);
 
-             foreach ($rows as $row) {
-                echo '<tr>';
-                echo '<td>' . $row[0] . '</td>';
-                echo '<td>' . $row[1] . '</td>';
-                echo '<td>' . $row[2] . '</td>';
-                echo '</tr>';
-            }
+// Executa a solicitação
+$query01 = curl_exec($ch);
+
+// Verifica se ocorreu algum erro
+if ($query01 === false) {
+    echo 'Erro ao enviar os dados: ' . curl_error($ch);
+} else {
+    // Decodifica a resposta JSON
+    $resultados = json_decode($query01, true);
+    //print_r($resultados);
     
-            echo '</table>';
-            
-         }
-         
-        }
-        */
-    ?>
+    foreach ($resultados as $element) {
+       
+        echo "<tr>";
+
+            echo "<td>" . base64_decode($element[1]["Value"]) . "</td>";
+            if(base64_decode($element[6]["Value"]) == 3){
+                $att_name = 'Aluno';
+            }else{
+                $att_name = 'Sem atribuição';
+            }
+            echo "<td class='escopo'>" . base64_decode($element[4]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[5]["Value"]) . "</td>";
+            echo "<td class='escopo'>" .$att_name . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[8]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[3]["Value"]) . "</td>";
+
+            echo "<td  class='escopo'>
+            <form action='vincular.php' method='post'>
+            <input type='hidden' value='" . $element[0]["Value"] . "' name='id_aluno'>
+            <input type='hidden' value='" . $element[1]["Value"] . "' name='nome_aluno'>
+            <input type='hidden' value='" . $element[4]["Value"] . "' name='cpf_aluno'>
+            <button type='submit' class='btn btn-primary'>Vincular responsavel</button>
+            </form>
+            </td>";
+        
+        echo "</tr>";
+        
+    }
+    
+    echo "</table>";
+    
+}
+
+// Fecha a conexão cURL
+curl_close($ch);
+
+?>
+
 </table>
 
 

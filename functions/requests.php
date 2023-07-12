@@ -9,6 +9,7 @@ if (isset($_GET['request'])){
 
 
 switch ($request) {
+
     case '1':
         $user = $_GET['user'];
         $pwd = $_GET['pwd'];
@@ -25,6 +26,17 @@ switch ($request) {
         $email = $_POST['email'];
         $att = $_POST['att'];
         insert_admin($nome, $cpf, $pwd, $endereco, $matricula, $datanasc, $email, $att);
+        break;
+    
+    case '3':
+        $cpf_aluno = $_POST['cpf_aluno'];
+        $cpf_resp = $_POST['cpf_resp'];
+        vincular($cpf_aluno, $cpf_resp);
+        break;
+    
+    case '4':
+        $cpf_resp = $_GET['cpf_resp'];
+        return_vinculo($cpf_resp);
         break;
 }
 ?>

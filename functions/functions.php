@@ -131,5 +131,101 @@ function insert_admin($nome, $cpf, $pwd, $endereco, $matricula, $datanasc, $emai
     }
 }
 
+function vincular($cpf_aluno,$cpf_rep){
+
+    $cpf_rep_encode = base64_encode($cpf_rep);
+
+    $url = 'https://api.dbhub.io/v1/execute';
+
+    // Dados a serem enviados para a API
+    $data01 = array(
+        'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
+        'dbowner' => 'guiaraujoreal',
+        'dbname' => 'tokenid.sqlite',
+        'sql' => base64_encode("INSERT INTO vinculo(cpf_aluno, cpf_responsavel) VALUES ('$cpf_aluno', '$cpf_rep_encode')")
+    );
+
+    // Inicializa o cURL
+    $ch = curl_init();
+
+    // Configura as opções do cURL
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data01);
+
+    // Executa a solicitação
+    $query01 = curl_exec($ch);
+
+    // Verifica se ocorreu algum erro
+    if ($query01 === false) {
+        echo 'Erro ao enviar os dados: ' . curl_error($ch);
+    } else {
+        echo 'ok';
+}
+}
+
+function return_vinculo($cpf_resp){
+    $url = 'https://api.dbhub.io/v1/query';
+    // Dados da solicitação
+    $data = [
+        'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
+        'dbowner' => 'guiaraujoreal',
+        'dbname' => 'tokenid.sqlite',
+        'sql' => base64_encode('SELECT cpf_aluno FROM vinculo WHERE cpf_responsavel = \'' . $cpf_resp . '\'')
+    ];
+
+    // Inicializa o cURL
+    $ch = curl_init();
+
+    // Configura as opções do cURL
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Executa a solicitação
+    $resultado01 = curl_exec($ch);
+
+    // Verifica se ocorreu algum erro
+    if ($resultado01 === false) {
+        $return_login = array(0,0);
+    } else {
+        
+        // Obtém o número de linhas retornadas
+        $num_rows = 0;
+        if (!empty($resultado01)) {
+            $resposta = json_decode($resultado01, true);
+            //print_r($resposta);
+            
+            if (!empty($resposta)) {
+                $num_rows = count($resposta);
+                if($num_rows > 0){
+                    
+                    // Verifica se há algum resultado
+                    if (!empty($resposta)) {
+
+                        foreach($resposta as $element){
+                            $cpf_aluno = base64_decode($element[0]["Value"]);
+                            $return_vinculo[] = $cpf_aluno;
+                        }
+                        print_r($return_vinculo);
+                    } else {
+                        $return_login = array(0,0);
+                    }
+                
+            }
+        }else{
+            $return_login = array(0,0);
+        }
+        echo json_encode($return_login);
+        
+    }
+
+    // Fecha a sessão cURL
+    curl_close($ch);
+}
+}
+
 
 ?>
