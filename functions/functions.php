@@ -40,9 +40,9 @@ function login($user, $pwd){
             // Verifica se há algum resultado
             if (!empty($resposta)) {
 
-                $att_return = base64_decode($resposta[0][4]['Value']);
-                $name_return = base64_decode($resposta[0][5]['Value']);
-                $cpf_return = base64_decode($resposta[0][1]['Value']);
+                $att_return = $resposta[0][4]['Value'];
+                $name_return = $resposta[0][5]['Value'];
+                $cpf_return = $resposta[0][1]['Value'];
 
                 $return_login = array($att_return,$name_return,$cpf_return);
             } else {
@@ -132,9 +132,9 @@ function insert_admin($nome, $cpf, $pwd, $endereco, $matricula, $datanasc, $emai
     }
 }
 
-function vincular($cpf_aluno,$cpf_rep){
+function vincular($cpf_aluno,$cpf_resp){
 
-    $cpf_rep_encode = base64_encode($cpf_rep);
+    $cpf_resp_encode = base64_encode($cpf_resp);
 
     $url = 'https://api.dbhub.io/v1/execute';
 
@@ -143,7 +143,7 @@ function vincular($cpf_aluno,$cpf_rep){
         'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
         'dbowner' => 'guiaraujoreal',
         'dbname' => 'tokenid.sqlite',
-        'sql' => base64_encode("INSERT INTO vinculo(cpf_aluno, cpf_responsavel) VALUES ('$cpf_aluno', '$cpf_rep_encode')")
+        'sql' => base64_encode("INSERT INTO vinculo(cpf_aluno, cpf_responsavel) VALUES ('$cpf_aluno', '$cpf_resp_encode')")
     );
 
     // Inicializa o cURL

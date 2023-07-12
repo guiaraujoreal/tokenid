@@ -52,30 +52,29 @@ if ($query01 === false) {
 } else {
     // Decodifica a resposta JSON
     $resultados = json_decode($query01, true);
-    //print_r($resultados);
     
     foreach ($resultados as $element) {
        
         echo "<tr>";
 
             echo "<td class='escopo'>" . $element[0]["Value"] . "</td>";
-            if(base64_decode($element[6]["Value"]) == 3){
+            if(base64_decode($element[8]["Value"]) == 3){
                 $att_name = 'Aluno';
             }else{
                 $att_name = 'Sem atribuição';
             }
             echo "<td class='escopo'>" . base64_decode($element[1]["Value"]) . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[4]["Value"]) . "</td>";
-            echo "<td class='escopo'>" . base64_decode($element[5]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[7]["Value"]) . "</td>";
             echo "<td class='escopo'>" .$att_name . "</td>";
-            echo "<td class='escopo'>" . base64_decode($element[8]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[5]["Value"]) . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[3]["Value"]) . "</td>";
 
             echo "<td  class='escopo'>
             <form action='vincular.php' method='post'>
             <input type='hidden' value='" . $element[0]["Value"] . "' name='id_aluno'>
             <input type='hidden' value='" . $element[1]["Value"] . "' name='nome_aluno'>
-            <input type='hidden' value='" . $element[4]["Value"] . "' name='cpf_aluno'>
+            <input type='hidden' value='" . $element[2]["Value"] . "' name='cpf_aluno'>
             <button type='submit' class='btn btn-primary'>Vincular responsavel</button>
             </form>
             </td>";
