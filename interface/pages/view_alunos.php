@@ -64,7 +64,7 @@ if ($query01 === false) {
                 $att_name = 'Sem atribuição';
             }
             echo "<td class='escopo'>" . base64_decode($element[1]["Value"]) . "</td>";
-            echo "<td class='escopo'>" . base64_decode($element[4]["Value"]) . "</td>";
+            echo "<td class='escopo'>" . base64_decode($element[2]["Value"]) . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[7]["Value"]) . "</td>";
             echo "<td class='escopo'>" .$att_name . "</td>";
             echo "<td class='escopo'>" . base64_decode($element[5]["Value"]) . "</td>";

@@ -40,9 +40,9 @@ function login($user, $pwd){
             // Verifica se há algum resultado
             if (!empty($resposta)) {
 
-                $att_return = base64_decode($resposta[0][4]['Value']);
-                $name_return = base64_decode($resposta[0][5]['Value']);
-                $cpf_return = base64_decode($resposta[0][1]['Value']);
+                $att_return = $resposta[0][4]['Value'];
+                $name_return = $resposta[0][5]['Value'];
+                $cpf_return = $resposta[0][1]['Value'];
 
                 $return_login = array($att_return,$name_return,$cpf_return);
             } else {
