@@ -280,6 +280,7 @@ function return_vinculo($cpf_resp){
                                             }
                                             $return_vinculo["return"]["Value"] = 1;
                                             $return_vinculo["dados"][] = $dados_alunos;
+                                            //print_r($return_vinculo["dados"][0][0]["nome"]);
                                             echo json_encode($return_vinculo);
                                             
                                         }
