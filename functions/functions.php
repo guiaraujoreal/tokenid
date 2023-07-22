@@ -190,7 +190,9 @@ function return_vinculo($cpf_resp){
 
     // Verifica se ocorreu algum erro
     if ($resultado01 === false) {
-        $return_login = array(0,0);
+        $return_vinculo["return"]["Value"] = 0;
+        $return_vinculo["dados"][] = 0;
+        echo json_encode($return_vinculo);
     } else {
         
         // Obtém o número de linhas retornadas
@@ -199,37 +201,146 @@ function return_vinculo($cpf_resp){
             $resposta = json_decode($resultado01, true);
             //print_r($resposta);
             
+            
             if (!empty($resposta)) {
                 $num_rows = count($resposta);
                 if($num_rows > 0){
                     
                     // Verifica se há algum resultado
                     if (!empty($resposta)) {
-
+                        
                         foreach($resposta as $element){
-                            $cpf_aluno = base64_decode($element[0]["Value"]);
-                            $return_vinculo[] = $cpf_aluno;
+                            $cpf_aluno[] = $element[0]["Value"];
                         }
-                        print_r($return_vinculo);
+                        $cpf_query = '"' . implode('", "',$cpf_aluno) . '"';
+                        
+                        
+                        
+                        $url = 'https://api.dbhub.io/v1/query';
+                        // Dados da solicitação
+                        $query = [
+                            'apikey' => '2SO1wiXchRm2wZSeCz6D0HKIk4d',
+                            'dbowner' => 'guiaraujoreal',
+                            'dbname' => 'tokenid.sqlite',
+                            'sql' => base64_encode('SELECT cpf,nome FROM alunos WHERE cpf IN (' . $cpf_query . ')')
+                        ];
+                        // Configura as opções do cURL
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                        // Executa a solicitação
+                        $nomes = curl_exec($ch);
+
+                        if ($nomes === false) {
+                            echo 'vazio';
+                        } else {
+                            $num_rows = 0;
+                            if (!empty($nomes)) {
+                                $info_als = json_decode($nomes, true);
+                                
+                                if (!empty($info_als)) {
+
+                                    $num_rows = count($info_als);
+
+                                    if($num_rows > 0){
+                                        
+                                        
+                                        if (!empty($info_als)) {
+                                            $cpf = null;
+                                            $nome = null;
+                                            //print_r($info_als);
+                                            
+                                            foreach($info_als as $element2){
+                                                foreach($element2 as $dados){
+                                                    if($dados["Name"] === 'cpf'){
+                                                        $cpf = $dados["Value"];
+                                                    }
+                                                    elseif($dados["Name"] === 'nome'){
+                                                        $nome = $dados["Value"];
+                                                    }
+                                    
+                                                }
+                                                if($cpf !== null && $nome !== null) {
+                                                    $dados_alunos[] = array(
+                                                        "cpf" => base64_decode($cpf),
+                                                        "nome" => base64_decode($nome)
+                                                    );
+                                                }
+                                                else{
+                                                    $dados_alunos[] = array(
+                                                        "cpf" => base64_encode(0),
+                                                        "nome" => base64_encode(0)
+                                                    );
+                                                }
+                                                
+                                                
+                                                //echo json_encode($return_vinculo);
+                                            }
+                                            $return_vinculo["return"]["Value"] = 1;
+                                            $return_vinculo["dados"][] = $dados_alunos;
+                                            echo json_encode($return_vinculo);
+                                            
+                                        }
+                                        else{
+                                            $return_vinculo["return"]["Value"] = 0;
+                                            $return_vinculo["dados"][] = 0;
+                                            echo json_encode($return_vinculo);
+                                            
+                                        }
+                                    }
+                                    else{
+                                        $return_vinculo["return"]["Value"] = 0;
+                                        $return_vinculo["dados"][] = 0;
+                                        echo json_encode($return_vinculo);
+                                            
+                                    }
+                                }
+                                else{
+                                    $return_vinculo["return"]["Value"] = 0;
+                                    $return_vinculo["dados"][] = 0;
+                                    echo json_encode($return_vinculo);
+
+                                }
+                            }
+                            else{
+                                $return_vinculo["return"]["Value"] = 0;
+                                $return_vinculo["dados"][] = 0;
+                                echo json_encode($return_vinculo);
+                                
+                            }
+
+                        }
+
                     } else {
-                        $return_vinculo = array(0);
+                        $return_vinculo["return"]["Value"] = 0;
+                        $return_vinculo["dados"][] = 0;
                         echo json_encode($return_vinculo);
+                        
                     }
                 
             }
         }else{
-            $return_vinculo = array(0);
+            $return_vinculo["return"]["Value"] = 0;
+            $return_vinculo["dados"][] = 0;
             echo json_encode($return_vinculo);
+           
+            
         }
-        $return_vinculo = array(0);
-        echo json_encode($return_vinculo);
         
+    }else{
+        $return_vinculo["return"]["Value"] = 0;
+        $return_vinculo["dados"][] = 0;
+        echo json_encode($return_vinculo);
     }
 
     // Fecha a sessão cURL
     curl_close($ch);
 }
 }
+
+//function confere_vinculo()
 
 
 ?>
